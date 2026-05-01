@@ -1,0 +1,260 @@
+@import "tailwindcss";
+
+:root {
+  --background: #07111f;
+  --foreground: #eef7ff;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-body);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: #040913;
+}
+
+body {
+  background: #040913;
+  color: var(--foreground);
+  font-family: var(--font-body), sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+@keyframes countdown-drop {
+  0% {
+    opacity: 0.25;
+    transform: translateY(-0.24em) scale(1.24);
+    filter: blur(1.5px);
+  }
+
+  55% {
+    opacity: 0.92;
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+.scoreboard-popup-backdrop {
+  animation: scoreboard-popup-backdrop 10s ease both;
+  background:
+    radial-gradient(circle at center, rgba(255, 217, 90, 0.16), transparent 38%),
+    rgba(3, 6, 18, 0.72);
+  backdrop-filter: blur(8px);
+}
+
+.scoreboard-popup-card {
+  animation: scoreboard-popup-card 10s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.round-start-backdrop {
+  animation: round-start-backdrop 4.1s ease both;
+  background:
+    radial-gradient(circle at center, rgba(255, 217, 90, 0.18), transparent 40%),
+    rgba(3, 6, 18, 0.78);
+  backdrop-filter: blur(10px);
+}
+
+.round-start-card {
+  animation: round-start-card 4.1s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.final-countdown-backdrop {
+  animation: final-countdown-backdrop 0.55s ease both;
+  background:
+    radial-gradient(circle at center, rgba(255, 217, 90, 0.18), transparent 42%),
+    rgba(3, 6, 18, 0.78);
+  backdrop-filter: blur(10px);
+}
+
+.final-countdown-card {
+  animation: final-countdown-card 0.65s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.final-ended-backdrop {
+  animation: final-ended-backdrop 0.7s ease both;
+  background:
+    radial-gradient(circle at center, rgba(255, 217, 90, 0.2), transparent 44%),
+    rgba(3, 6, 18, 0.84);
+  backdrop-filter: blur(10px);
+}
+
+.final-ended-title {
+  animation: final-ended-title 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes scoreboard-popup-backdrop {
+  0% {
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  82% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes scoreboard-popup-card {
+  0% {
+    opacity: 0;
+    transform: translateY(3.5rem) scale(0.9);
+    filter: blur(16px);
+  }
+
+  12% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+
+  78% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-3rem) scale(0.97);
+    filter: blur(12px);
+  }
+}
+
+@keyframes final-ended-backdrop {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes final-ended-title {
+  0% {
+    opacity: 0;
+    transform: translateY(3rem) scale(0.92);
+    filter: blur(16px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes final-countdown-backdrop {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes final-countdown-card {
+  0% {
+    opacity: 0;
+    transform: translateY(3rem) scale(0.92);
+    filter: blur(14px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes round-start-backdrop {
+  0% {
+    opacity: 0;
+  }
+
+  16% {
+    opacity: 1;
+  }
+
+  82% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes round-start-card {
+  0% {
+    opacity: 0;
+    transform: translateY(4rem) scale(0.88);
+    filter: blur(18px);
+  }
+
+  18% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+
+  76% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-2.5rem) scale(1.04);
+    filter: blur(12px);
+  }
+}
+
+.countdown-drop {
+  animation: countdown-drop 0.85s cubic-bezier(0.18, 0.86, 0.24, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .countdown-drop {
+    animation: none;
+  }
+
+  .scoreboard-popup-card {
+    animation: none;
+  }
+
+  .scoreboard-popup-backdrop {
+    animation: none;
+  }
+
+  .round-start-backdrop,
+  .round-start-card,
+  .final-countdown-backdrop,
+  .final-countdown-card,
+  .final-ended-backdrop,
+  .final-ended-title {
+    animation: none;
+  }
+}

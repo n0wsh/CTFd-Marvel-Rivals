@@ -1,0 +1,524 @@
+@mixin styles {
+  @font-face {
+    font-display: swap;
+    font-family: "RefrigeratorDeluxeBold";
+    font-style: normal;
+    font-weight: 700;
+    src: url("/themes/marvel-rivals/static/webfonts/RefrigeratorDeluxeBold.ttf")
+      format("truetype");
+  }
+
+  @font-face {
+    font-display: swap;
+    font-family: "RefrigeratorDeluxeHeavy";
+    font-style: normal;
+    font-weight: 900;
+    src: url("/themes/marvel-rivals/static/webfonts/RefrigeratorDeluxeHeavy.ttf")
+      format("truetype");
+  }
+
+  @font-face {
+    font-display: swap;
+    font-family: "RefrigeratorDeluxeExtrabold";
+    font-style: normal;
+    font-weight: 800;
+    src: url("/themes/marvel-rivals/static/webfonts/RefrigeratorDeluxeExtrabold.ttf")
+      format("truetype");
+  }
+
+  @font-face {
+    font-display: swap;
+    font-family: "NunitoSans10ptCondensedMedium";
+    font-style: normal;
+    font-weight: 500;
+    src: url("/themes/marvel-rivals/static/webfonts/NunitoSans10ptCondensedMedium.ttf")
+      format("truetype");
+  }
+
+  :root,
+  [data-bs-theme="dark"] {
+    --mr-bg: #060814;
+    --mr-surface: #101728;
+    --mr-surface-2: #18243a;
+    --mr-text: #f8fafc;
+    --mr-muted: #a8b3c7;
+    --mr-gold: #ffd84f;
+    --mr-red: #f0445f;
+    --mr-cyan: #3dd6f5;
+    --mr-border: rgba(255, 255, 255, 0.14);
+    --mr-body-bg:
+      radial-gradient(circle at 10% 0%, rgba(61, 214, 245, 0.18), transparent 24rem),
+      radial-gradient(circle at 90% 8%, rgba(240, 68, 95, 0.18), transparent 26rem),
+      linear-gradient(180deg, #0a1022 0%, var(--mr-bg) 48%, #03040b 100%);
+    --mr-grid-bg:
+      linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+    --mr-link-hover: #9ff3ff;
+    --mr-navbar-bg:
+      linear-gradient(90deg, rgba(6, 8, 20, 0.96), rgba(17, 24, 39, 0.94)),
+      linear-gradient(
+        90deg,
+        rgba(255, 216, 79, 0.18),
+        transparent 18%,
+        rgba(240, 68, 95, 0.16) 82%,
+        rgba(61, 214, 245, 0.2)
+      );
+    --mr-navbar-brand: #fff;
+    --mr-navbar-link: rgba(248, 250, 252, 0.76);
+    --mr-navbar-link-hover: #fff;
+    --mr-navbar-shadow: 0 12px 36px rgba(0, 0, 0, 0.32);
+    --mr-jumbotron-bg:
+      linear-gradient(135deg, rgba(255, 216, 79, 0.17), transparent 32%),
+      linear-gradient(90deg, rgba(13, 20, 39, 0.96), rgba(20, 33, 61, 0.9));
+    --mr-card-bg: rgba(16, 23, 40, 0.96);
+    --mr-table-bg: rgba(16, 23, 40, 0.7);
+    --mr-table-stripe-bg: rgba(24, 36, 58, 0.74);
+    --mr-form-bg: rgba(4, 9, 21, 0.82);
+    --mr-form-focus-bg: rgba(7, 13, 29, 0.96);
+    --mr-form-border: rgba(255, 255, 255, 0.16);
+    --mr-focus-ring: rgba(61, 214, 245, 0.18);
+    --mr-button-border: rgba(255, 255, 255, 0.16);
+    --mr-secondary-border: rgba(255, 255, 255, 0.18);
+    --mr-challenge-text: #fff;
+    --mr-dropdown-hover-bg: rgba(61, 214, 245, 0.14);
+    --mr-code: #e2e8f0;
+  }
+
+  [data-bs-theme="light"] {
+    --mr-bg: #eef3fb;
+    --mr-surface: #ffffff;
+    --mr-surface-2: #e5ecf7;
+    --mr-text: #121826;
+    --mr-muted: #526174;
+    --mr-border: rgba(15, 23, 42, 0.16);
+    --mr-body-bg:
+      radial-gradient(circle at 10% 0%, rgba(61, 214, 245, 0.16), transparent 24rem),
+      radial-gradient(circle at 90% 8%, rgba(240, 68, 95, 0.1), transparent 26rem),
+      linear-gradient(180deg, #fbfdff 0%, var(--mr-bg) 48%, #e1e7f0 100%);
+    --mr-grid-bg:
+      linear-gradient(90deg, rgba(15, 23, 42, 0.045) 1px, transparent 1px),
+      linear-gradient(180deg, rgba(15, 23, 42, 0.04) 1px, transparent 1px);
+    --mr-link-hover: #04718b;
+    --mr-navbar-bg:
+      linear-gradient(90deg, rgba(255, 255, 255, 0.96), rgba(233, 240, 249, 0.96)),
+      linear-gradient(
+        90deg,
+        rgba(255, 216, 79, 0.3),
+        transparent 18%,
+        rgba(240, 68, 95, 0.1) 82%,
+        rgba(61, 214, 245, 0.22)
+      );
+    --mr-navbar-brand: #121826;
+    --mr-navbar-link: rgba(18, 24, 38, 0.78);
+    --mr-navbar-link-hover: #000;
+    --mr-navbar-shadow: 0 12px 34px rgba(15, 23, 42, 0.16);
+    --mr-jumbotron-bg:
+      linear-gradient(135deg, rgba(255, 216, 79, 0.24), transparent 32%),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.96), rgba(226, 236, 249, 0.92));
+    --mr-card-bg: rgba(255, 255, 255, 0.92);
+    --mr-table-bg: rgba(255, 255, 255, 0.72);
+    --mr-table-stripe-bg: rgba(226, 236, 249, 0.78);
+    --mr-form-bg: rgba(255, 255, 255, 0.86);
+    --mr-form-focus-bg: #fff;
+    --mr-form-border: rgba(15, 23, 42, 0.18);
+    --mr-focus-ring: rgba(61, 214, 245, 0.22);
+    --mr-button-border: rgba(15, 23, 42, 0.14);
+    --mr-secondary-border: rgba(15, 23, 42, 0.18);
+    --mr-challenge-text: #121826;
+    --mr-dropdown-hover-bg: rgba(61, 214, 245, 0.16);
+    --mr-code: #172033;
+  }
+
+  html,
+  body {
+    min-height: 100%;
+  }
+
+  body {
+    background: var(--mr-body-bg);
+    color: var(--mr-text);
+    font-family: "RefrigeratorDeluxeBold", "Arial Narrow", Arial, sans-serif;
+    letter-spacing: 0;
+  }
+
+  body::before {
+    background: var(--mr-grid-bg);
+    background-size: 56px 56px;
+    content: "";
+    inset: 0;
+    mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.8), transparent 72%);
+    pointer-events: none;
+    position: fixed;
+    z-index: -1;
+  }
+
+  a {
+    color: var(--mr-cyan);
+  }
+
+  a:hover,
+  a:focus {
+    color: var(--mr-link-hover);
+  }
+
+  .navbar.bg-dark {
+    background: var(--mr-navbar-bg);
+    border-bottom: 1px solid var(--mr-border);
+    box-shadow: var(--mr-navbar-shadow);
+  }
+
+  .navbar-brand {
+    color: var(--mr-navbar-brand) !important;
+    font-family: "RefrigeratorDeluxeHeavy", "Arial Narrow", Arial, sans-serif;
+    font-style: italic;
+    font-weight: 900;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .navbar-dark .navbar-nav .nav-link {
+    color: var(--mr-navbar-link);
+    font-family: "RefrigeratorDeluxeBold", "Arial Narrow", Arial, sans-serif;
+    font-weight: 700;
+  }
+
+  .navbar-dark .navbar-nav .nav-link:hover,
+  .navbar-dark .navbar-nav .nav-link:focus {
+    color: var(--mr-navbar-link-hover);
+  }
+
+  main {
+    padding-bottom: 3rem;
+  }
+
+  .jumbotron {
+    background: var(--mr-jumbotron-bg);
+    border-bottom: 1px solid var(--mr-border);
+    color: var(--mr-text);
+    margin-bottom: 2rem;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .jumbotron h1 {
+    font-family: "RefrigeratorDeluxeHeavy", "Arial Narrow", Arial, sans-serif;
+    font-style: italic;
+    font-weight: 900;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  .modal-title,
+  .card-header,
+  .category-header h3,
+  .challenge-inner p {
+    font-family: "RefrigeratorDeluxeHeavy", "Arial Narrow", Arial, sans-serif;
+    font-style: italic;
+  }
+
+  p,
+  li,
+  blockquote,
+  .alert,
+  .card-body,
+  .modal-body,
+  .toast-body,
+  .form-text,
+  .text-muted,
+  .text-secondary,
+  small,
+  .table td {
+    font-family: "NunitoSans10ptCondensedMedium", "Arial Narrow", Arial, sans-serif;
+  }
+
+  .badge,
+  .btn,
+  .dropdown-item,
+  .form-control,
+  .form-select,
+  .custom-select,
+  .table th {
+    font-family: "RefrigeratorDeluxeBold", "Arial Narrow", Arial, sans-serif;
+  }
+
+  .btn:not(.challenge-button),
+  .btn-group > .btn {
+    border-radius: 0;
+  }
+
+  .card,
+  .modal-content,
+  .toast,
+  .alert,
+  .dropdown-menu {
+    background-color: var(--mr-card-bg);
+    border-color: var(--mr-border);
+    color: var(--mr-text);
+  }
+
+  .card-header,
+  .modal-header,
+  .modal-footer {
+    border-color: var(--mr-border);
+  }
+
+  .modal-content,
+  .modal-header,
+  .modal-body,
+  .modal-footer,
+  .modal .nav-tabs .nav-link,
+  .modal .btn-close {
+    border-radius: 0;
+  }
+
+  .text-muted,
+  .text-secondary,
+  small.text-muted {
+    color: var(--mr-muted) !important;
+  }
+
+  .table {
+    color: var(--mr-text);
+  }
+
+  .table > :not(caption) > * > * {
+    background-color: var(--mr-table-bg);
+    border-bottom-color: var(--mr-border);
+  }
+
+  .table-striped > tbody > tr:nth-of-type(odd) > * {
+    color: var(--mr-text);
+    background-color: var(--mr-table-stripe-bg);
+  }
+
+  .form-control,
+  .form-select,
+  .custom-select,
+  input:not([type]),
+  input[type="color"],
+  input[type="date"],
+  input[type="datetime-local"],
+  input[type="email"],
+  input[type="file"],
+  input[type="month"],
+  input[type="number"],
+  input[type="password"],
+  input[type="search"],
+  input[type="tel"],
+  input[type="text"],
+  input[type="time"],
+  input[type="url"],
+  input[type="week"],
+  select,
+  textarea {
+    background-color: var(--mr-form-bg);
+    border-radius: 0;
+    border-color: var(--mr-form-border);
+    color: var(--mr-text);
+  }
+
+  .form-control:focus,
+  .form-select:focus,
+  .custom-select:focus,
+  input:not([type]):focus,
+  input[type="color"]:focus,
+  input[type="date"]:focus,
+  input[type="datetime-local"]:focus,
+  input[type="email"]:focus,
+  input[type="file"]:focus,
+  input[type="month"]:focus,
+  input[type="number"]:focus,
+  input[type="password"]:focus,
+  input[type="search"]:focus,
+  input[type="tel"]:focus,
+  input[type="text"]:focus,
+  input[type="time"]:focus,
+  input[type="url"]:focus,
+  input[type="week"]:focus,
+  select:focus,
+  textarea:focus {
+    background-color: var(--mr-form-focus-bg);
+    border-radius: 0;
+    border-color: var(--mr-cyan);
+    box-shadow: 0 0 0 0.2rem var(--mr-focus-ring);
+    color: var(--mr-text);
+  }
+
+  .input-group > .form-control,
+  .input-group > .form-select,
+  .input-group > .custom-select,
+  .input-group-text {
+    border-radius: 0;
+  }
+
+  .btn-primary {
+    background: #fbdd2f;
+    border-color: var(--mr-button-border);
+    color: #000;
+    font-size: 18px;
+    font-weight: 800;
+    font-family: "RefrigeratorDeluxeBold", "Arial Narrow", Arial, sans-serif;
+    text-transform: uppercase;
+    border-radius: 0;
+    padding-top: 6px !important;
+    padding-bottom: 6px !important;
+  }
+
+  .btn-primary:hover,
+  .btn-primary:focus {
+    background: #eccf2a;
+  }
+
+  .btn-dark.challenge-button {
+    background: transparent;
+    border: 2px solid var(--mr-gold);
+    color: var(--mr-challenge-text);
+    font-size: 18px;
+    font-weight: 800;
+    font-family: "RefrigeratorDeluxeBold", "Arial Narrow", Arial, sans-serif;
+    text-transform: uppercase;
+    border-radius: 0;
+    padding-top: 6px !important;
+    padding-bottom: 6px !important;
+  }
+
+  .btn-dark.challenge-button:hover,
+  .btn-dark.challenge-button:focus {
+    background: rgba(251, 221, 47, 0.1);
+    border-color: #fbdd2f;
+    color: var(--mr-challenge-text);
+  }
+
+  .btn-secondary,
+  .btn-outline-secondary {
+    border-color: var(--mr-secondary-border);
+  }
+
+  .category-header h3 {
+    color: var(--mr-text);
+    font-weight: 900;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .challenge-button {
+    border-radius: 0.55rem;
+    isolation: isolate;
+    min-height: 8.5rem;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .challenge-button::before {
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 216, 79, 0.32),
+      transparent
+    );
+    content: "";
+    height: 100%;
+    left: -70%;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    transform: skewX(-16deg);
+    transition:
+      left 180ms ease,
+      opacity 180ms ease;
+    width: 42%;
+    z-index: 1;
+  }
+
+  .challenge-button:hover::before,
+  .challenge-button:focus::before {
+    left: 115% !important;
+    opacity: 1 !important;
+  }
+
+  .challenge-button.challenge-solved {
+    background: #fbdd2f !important;
+    border-color: #fbdd2f !important;
+    color: #000;
+  }
+
+  .challenge-button.challenge-solved::before {
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.76),
+      rgba(255, 255, 255, 0.2),
+      transparent
+    );
+  }
+
+  .challenge-inner {
+    position: relative;
+    z-index: 2;
+  }
+
+  .challenge-button.challenge-solved .challenge-inner p,
+  .challenge-button.challenge-solved .challenge-inner span {
+    color: #000;
+  }
+
+  .challenge-inner p {
+    font-weight: 900;
+    text-transform: uppercase;
+  }
+
+  .challenge-inner span {
+    color: var(--mr-challenge-text);
+    font-size: 1.35rem;
+    font-weight: 900;
+  }
+
+  .badge.bg-danger {
+    background-color: var(--mr-red) !important;
+  }
+
+  .badge.bg-light {
+    background-color: var(--mr-gold) !important;
+    color: #111827 !important;
+  }
+
+  .footer {
+    background: transparent;
+    line-height: normal;
+  }
+
+  .modal-backdrop.show {
+    opacity: 0.78;
+  }
+
+  .dropdown-item {
+    color: var(--mr-text);
+  }
+
+  .dropdown-item:hover,
+  .dropdown-item:focus {
+    background-color: var(--mr-dropdown-hover-bg);
+    color: var(--mr-text);
+  }
+
+  pre,
+  code {
+    color: var(--mr-code);
+  }
+
+  @media (max-width: 767.98px) {
+    .jumbotron {
+      padding-block: 2rem;
+    }
+
+    .challenge-button {
+      min-height: 7rem;
+    }
+  }
+}

@@ -17,6 +17,8 @@ downloads/
 eggs/
 lib/
 lib64/
+!apps/scoreboard/src/lib/
+!apps/scoreboard/src/lib/**
 parts/
 sdist/
 var/
@@ -77,6 +79,19 @@ CTFd/uploads
 
 # JS
 node_modules/
+.next/
+.env.local
+.env*.local
+
+# Local assistant/reference files
+AGENTS.md
+CLAUDE.md
+**/AGENTS.md
+**/CLAUDE.md
+/heroes.html
+
+# pytest
+.pytest_cache/
 
 # Flask Profiler files
 flask_profiler.sql

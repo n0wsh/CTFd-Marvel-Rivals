@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block stylesheets %}
+  <meta name="referrer" content="no-referrer">
+  {{ super() }}
+  <link rel="stylesheet" href="{{ request.script_root }}/plugins/hzu18_marvel_rivals/assets/hero-select.css?v=20260502-name-icon-line">
+{% endblock %}
+
+{% block content %}
+  <div class="jumbotron">
+    <div class="container">
+      <h1>Hero Selection</h1>
+    </div>
+  </div>
+
+  <div class="container">
+    {% include "components/errors.html" %}
+    <div id="hzu18-hero-selection-mount"></div>
+  </div>
+{% endblock %}
+
+{% block scripts %}
+  {{ super() }}
+  <script defer src="{{ request.script_root }}/plugins/hzu18_marvel_rivals/assets/hero-select.js?v=20260502-name-icon-line"></script>
+{% endblock %}

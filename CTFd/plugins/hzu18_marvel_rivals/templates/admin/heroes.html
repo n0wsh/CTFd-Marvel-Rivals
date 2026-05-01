@@ -1,0 +1,182 @@
+{% extends "admin/base.html" %}
+
+{% block content %}
+<div class="jumbotron">
+	<div class="container">
+		<h1>HZU18 Heroes</h1>
+	</div>
+</div>
+
+<div class="container">
+	{% for error in errors %}
+		<div class="alert alert-danger" role="alert">{{ error }}</div>
+	{% endfor %}
+
+	<div class="row">
+		<div class="col-md-5">
+			<div class="card mb-4">
+				<div class="card-header">
+					<strong>Add Hero</strong>
+				</div>
+				<div class="card-body">
+					<form method="POST">
+						<input type="hidden" name="nonce" value="{{ Session.nonce }}">
+						<input type="hidden" name="action" value="create">
+						<div class="form-group">
+							<label for="hero-name">Name</label>
+							<input id="hero-name" class="form-control" name="name" required>
+						</div>
+						<div class="form-group">
+							<label for="hero-slug">Slug</label>
+							<input id="hero-slug" class="form-control" name="slug" placeholder="auto-generated">
+						</div>
+						<div class="form-group">
+							<label for="hero-role">Role</label>
+							<input id="hero-role" class="form-control" name="role" value="Flex">
+						</div>
+						<div class="form-group">
+							<label for="hero-color">Theme Color</label>
+							<input id="hero-color" class="form-control" name="theme_color" value="#2dd4bf">
+						</div>
+						<div class="form-group">
+							<label for="hero-portrait">Portrait Path</label>
+							<input id="hero-portrait" class="form-control" name="portrait_path">
+						</div>
+						<div class="form-group">
+							<label for="hero-sound">Sound Path</label>
+							<input id="hero-sound" class="form-control" name="sound_path">
+						</div>
+						<div class="form-group">
+							<label for="hero-sort">Sort Order</label>
+							<input id="hero-sort" class="form-control" name="sort_order" type="number" value="0">
+						</div>
+						<div class="form-check mb-3">
+							<input id="hero-enabled" class="form-check-input" name="enabled" type="checkbox" checked>
+							<label class="form-check-label" for="hero-enabled">Enabled</label>
+						</div>
+						<button class="btn btn-primary" type="submit">Add Hero</button>
+					</form>
+				</div>
+			</div>
+
+			<div class="card mb-4">
+				<div class="card-header">
+					<strong>Settings</strong>
+				</div>
+				<div class="card-body">
+					<form method="POST">
+						<input type="hidden" name="nonce" value="{{ Session.nonce }}">
+						<input type="hidden" name="action" value="settings">
+						<div class="form-check mb-2">
+							<input id="picks-locked" class="form-check-input" name="picks_locked" type="checkbox" {% if settings.picks_locked %}checked{% endif %}>
+							<label class="form-check-label" for="picks-locked">Lock hero picks now</label>
+						</div>
+						<div class="form-check mb-3">
+							<input type="hidden" name="unique_heroes" value="true">
+							<input id="unique-heroes" class="form-check-input" type="checkbox" checked disabled>
+							<label class="form-check-label" for="unique-heroes">Unique heroes enforced</label>
+						</div>
+						<div class="form-group">
+							<label for="scoreboard-origins">Allowed Scoreboard Origins</label>
+							<textarea id="scoreboard-origins" class="form-control" name="scoreboard_origins" rows="3">{{ settings.scoreboard_origins }}</textarea>
+							<small class="form-text text-muted">Comma-separated origins for public HZU18 API CORS.</small>
+						</div>
+						<button class="btn btn-primary" type="submit">Save Settings</button>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-7">
+			<div class="card mb-4">
+				<div class="card-header">
+					<strong>Hero Catalog</strong>
+				</div>
+				<div class="table-responsive">
+					<table class="table table-striped mb-0">
+						<thead>
+							<tr>
+								<th>Name</th>
+								<th>Role</th>
+								<th>Slug</th>
+								<th>Enabled</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for hero in heroes %}
+								<tr>
+									<td colspan="5">
+										<form class="form-row align-items-center" method="POST" action="{{ url_for('hzu18_admin.admin_update_hero', hero_id=hero.id) }}">
+											<input type="hidden" name="nonce" value="{{ Session.nonce }}">
+											<div class="col-md-3 mb-2">
+												<input class="form-control" name="name" value="{{ hero.name }}">
+											</div>
+											<div class="col-md-2 mb-2">
+												<input class="form-control" name="role" value="{{ hero.role }}">
+											</div>
+											<div class="col-md-2 mb-2">
+												<input class="form-control" name="slug" value="{{ hero.slug }}">
+											</div>
+											<div class="col-md-1 mb-2 text-center">
+												<input name="enabled" type="checkbox" {% if hero.enabled %}checked{% endif %}>
+											</div>
+											<div class="col-md-2 mb-2">
+												<input class="form-control" name="theme_color" value="{{ hero.theme_color }}">
+											</div>
+											<div class="col-md-2 mb-2 d-flex">
+												<input name="sort_order" type="hidden" value="{{ hero.sort_order }}">
+												<input name="portrait_path" type="hidden" value="{{ hero.portrait_path or '' }}">
+												<input name="sound_path" type="hidden" value="{{ hero.sound_path or '' }}">
+												<button class="btn btn-sm btn-primary mr-1" type="submit">Save</button>
+												<button
+													class="btn btn-sm btn-danger"
+													type="submit"
+													formaction="{{ url_for('hzu18_admin.admin_delete_hero', hero_id=hero.id) }}"
+													onclick="return confirm('Remove {{ hero.name|e }}? This also removes any team pick using this hero.');"
+												>
+													Remove
+												</button>
+											</div>
+										</form>
+									</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+			<div class="card mb-4">
+				<div class="card-header">
+					<strong>Current Picks</strong>
+				</div>
+				<div class="table-responsive">
+					<table class="table table-striped mb-0">
+						<thead>
+							<tr>
+								<th>Team</th>
+								<th>Hero</th>
+								<th>Picked At</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for pick in picks %}
+								<tr>
+									<td>{{ pick.team.name if pick.team else pick.team_id }}</td>
+									<td>{{ pick.hero.name if pick.hero else pick.hero_id }}</td>
+									<td>{{ pick.picked_at }}</td>
+								</tr>
+							{% else %}
+								<tr>
+									<td colspan="3" class="text-muted">No hero picks yet.</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
