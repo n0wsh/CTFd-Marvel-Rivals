@@ -280,6 +280,13 @@ def scoreboard():
     return jsonify({"success": True, "data": public_scoreboard_payload()})
 
 
+@hzu18_api.route("/scoreboard/result", methods=["GET"])
+def scoreboard_result():
+    return jsonify(
+        {"success": True, "data": public_scoreboard_payload(ignore_freeze=True)}
+    )
+
+
 @hzu18_api.route("/events/recent", methods=["GET"])
 def recent_events():
     limit = max(1, min(request.args.get("limit", 25, type=int), 100))

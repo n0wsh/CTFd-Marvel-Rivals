@@ -73,6 +73,8 @@ const MAX_VISIBLE_EVENTS = 6;
 export const SCOREBOARD_REFRESH_INTERVAL_MS = 5000;
 export const HZU18_EVENT_REPLAY_LIMIT = 25;
 
+export type SnapshotMode = "broadcast" | "result";
+
 export const HZU18_EVENT_TYPES = [
   "countdown_checkpoint",
   "ctf_started",
@@ -474,10 +476,14 @@ function buildSnapshot(
   };
 }
 
-export async function loadHzu18Snapshot(): Promise<BroadcastSnapshot | null> {
+export async function loadHzu18Snapshot(
+  mode: SnapshotMode = "broadcast",
+): Promise<BroadcastSnapshot | null> {
+  const scoreboardPath =
+    mode === "result" ? "/scoreboard/result" : "/scoreboard";
   const [state, scoreboard, events] = await Promise.all([
     safeFetchHzu18<HZU18StatePayload>("/state"),
-    safeFetchHzu18<HZU18ScoreboardPayload>("/scoreboard"),
+    safeFetchHzu18<HZU18ScoreboardPayload>(scoreboardPath),
     safeFetchHzu18<HZU18EventLogPayload[]>("/events/recent?limit=6"),
   ]);
 

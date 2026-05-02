@@ -42,8 +42,10 @@ services:
     restart: always
     volumes:
       - ./conf/nginx/http.conf:/etc/nginx/nginx.conf
+      - /etc/letsencrypt:/etc/letsencrypt:ro
     ports:
       - 80:80
+      - 443:443
     depends_on:
       - ctfd
 
@@ -58,6 +60,8 @@ services:
       - NEXT_PUBLIC_CTFD_PUBLIC_BASE=${NEXT_PUBLIC_CTFD_PUBLIC_BASE:-https://u18-final.haruulzangi.mn}
       - NEXT_PUBLIC_SCOREBOARD_PUBLIC_BASE=${NEXT_PUBLIC_SCOREBOARD_PUBLIC_BASE:-https://scoreboard.haruulzangi.mn}
       - NEXT_PUBLIC_SCOREBOARD_API_BASE=${NEXT_PUBLIC_SCOREBOARD_API_BASE:-https://u18-final.haruulzangi.mn/api/v1/hzu18}
+      - CTFD_ADMIN_API_BASE=https://u18-final.haruulzangi.mn/api/v1
+      - CTFD_ADMIN_API_KEY=ctfd_989517d3cc7e3601fad292fd682530786cf82114f04718ef713c983a32a642c8
     volumes:
       - ./apps/scoreboard:/app
       - scoreboard_node_modules:/app/node_modules

@@ -427,7 +427,7 @@ def current_team_payload(team, user):
     }
 
 
-def solve_summaries(team_ids):
+def solve_summaries(team_ids, ignore_freeze=False):
     summaries = {
         team_id: {"solve_count": 0, "last_solve": None, "delta": 0}
         for team_id in team_ids
@@ -442,7 +442,7 @@ def solve_summaries(team_ids):
     )
 
     freeze = get_config("freeze")
-    if freeze:
+    if freeze and not ignore_freeze:
         query = query.filter(Solves.date < unix_time_to_utc(int(freeze)))
 
     for solve in query.all():
@@ -457,7 +457,7 @@ def solve_summaries(team_ids):
     return summaries
 
 
-def public_scoreboard_payload():
+def public_scoreboard_payload(ignore_freeze=False):
     if get_config("user_mode") != "teams":
         return {
             "ctf_name": ctf_name(),
@@ -470,7 +470,7 @@ def public_scoreboard_payload():
         Teams.name.asc()
     )
     teams = {team.id: team for team in visible_teams.all()}
-    standings = get_standings()
+    standings = get_standings(admin=ignore_freeze)
     ordered_team_ids = []
     scores = {}
 
@@ -490,7 +490,7 @@ def public_scoreboard_payload():
             HZU18TeamHeroPick.team_id.in_(ordered_team_ids)
         ).all()
     }
-    summaries = solve_summaries(ordered_team_ids)
+    summaries = solve_summaries(ordered_team_ids, ignore_freeze=ignore_freeze)
     locked = hero_picks_locked()
 
     rows = []
@@ -521,6 +521,6 @@ def public_scoreboard_payload():
         "ctf_name": ctf_name(),
         "phase": competition_phase(),
         "locked": locked,
-        "scoreboard_frozen": is_scoreboard_frozen(),
+        "scoreboard_frozen": is_scoreboard_frozen() and not ignore_freeze,
         "standings": rows,
     }

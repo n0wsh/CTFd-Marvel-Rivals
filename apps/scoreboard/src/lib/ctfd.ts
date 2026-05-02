@@ -1,11 +1,17 @@
 import "server-only";
 
 import { broadcastSnapshot as fallbackSnapshot } from "@/lib/demo-data";
-import { formatSnapshotTime, loadHzu18Snapshot } from "@/lib/hzu18";
+import {
+  formatSnapshotTime,
+  loadHzu18Snapshot,
+  type SnapshotMode,
+} from "@/lib/hzu18";
 import type { BroadcastSnapshot } from "@/lib/types";
 
-export async function loadBroadcastSnapshot(): Promise<BroadcastSnapshot> {
-  const liveSnapshot = await loadHzu18Snapshot();
+export async function loadBroadcastSnapshot(
+  mode: SnapshotMode = "broadcast",
+): Promise<BroadcastSnapshot> {
+  const liveSnapshot = await loadHzu18Snapshot(mode);
 
   if (liveSnapshot) {
     return liveSnapshot;

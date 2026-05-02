@@ -214,7 +214,14 @@ function FinalEndedPopup() {
   );
 }
 
-export function ScoreboardPage({ snapshot }: { snapshot: BroadcastSnapshot }) {
+export function ScoreboardPage({
+  snapshot,
+  mode = "broadcast",
+}: {
+  snapshot: BroadcastSnapshot;
+  mode?: "broadcast" | "result";
+}) {
+  const isResultMode = mode === "result";
   const [liveSnapshot, setLiveSnapshot] = useState(snapshot);
   const [, setRealtimeStatus] = useState<RealtimeStatus>("connecting");
   const [displayNow, setDisplayNow] = useState<number | null>(null);
@@ -294,7 +301,7 @@ export function ScoreboardPage({ snapshot }: { snapshot: BroadcastSnapshot }) {
     refreshInFlightRef.current = true;
 
     try {
-      const nextSnapshot = await loadHzu18Snapshot();
+      const nextSnapshot = await loadHzu18Snapshot(mode);
 
       if (!nextSnapshot) {
         setRealtimeStatus((current) =>
@@ -316,7 +323,7 @@ export function ScoreboardPage({ snapshot }: { snapshot: BroadcastSnapshot }) {
     } finally {
       refreshInFlightRef.current = false;
     }
-  }, []);
+  }, [mode]);
 
   const playEventSound = useCallback((event: HZU18EventLogPayload) => {
     playScoreboardEventSound(event, getEventSoundUrl(event));
@@ -472,7 +479,7 @@ export function ScoreboardPage({ snapshot }: { snapshot: BroadcastSnapshot }) {
     };
   }, [handleEventMessage]);
 
-  const isPrestart = liveSnapshot.phase === "prestart";
+  const isPrestart = liveSnapshot.phase === "prestart" && !isResultMode;
   const startCountdownSeconds =
     liveSnapshot.countdownTargetUnix !== null && displayNow !== null
       ? liveSnapshot.countdownTargetUnix - Math.floor(displayNow / 1000)
@@ -489,6 +496,7 @@ export function ScoreboardPage({ snapshot }: { snapshot: BroadcastSnapshot }) {
         )
       : null;
   const ctfEndedOnClient =
+    !isResultMode &&
     liveSnapshot.ctfEndUnix !== null &&
     displayNow !== null &&
     Math.floor(displayNow / 1000) >= liveSnapshot.ctfEndUnix;
@@ -496,10 +504,12 @@ export function ScoreboardPage({ snapshot }: { snapshot: BroadcastSnapshot }) {
     endCountdownSeconds !== null &&
     endCountdownSeconds > 0 &&
     endCountdownSeconds <= 10 &&
+    !isResultMode &&
     (liveSnapshot.phase === "live" || liveSnapshot.phase === "frozen");
 
   useEffect(() => {
     if (
+      isResultMode ||
       liveSnapshot.ctfEndUnix === null ||
       endCountdownSeconds === null ||
       endCountdownSeconds <= 0 ||
@@ -517,7 +527,7 @@ export function ScoreboardPage({ snapshot }: { snapshot: BroadcastSnapshot }) {
 
     audio.currentTime = 0;
     void audio.play().catch(() => undefined);
-  }, [endCountdownSeconds, liveSnapshot.ctfEndUnix]);
+  }, [endCountdownSeconds, isResultMode, liveSnapshot.ctfEndUnix]);
 
   const handleEnableSound = () => {
     void enableScoreboardAudio().finally(() => {

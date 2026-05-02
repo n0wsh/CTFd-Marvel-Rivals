@@ -1,7 +1,9 @@
+import datetime
 import time
 
 from flask import request
 
+from CTFd.cache import clear_standings
 from CTFd.plugins.hzu18_marvel_rivals.helpers import (
     OFFICIAL_HERO_IMAGES,
     record_event,
@@ -356,6 +358,48 @@ def test_hzu18_scoreboard_hides_unconfirmed_hero():
             standings = response.get_json()["data"]["standings"]
             assert standings[0]["team_id"] == team.id
             assert standings[0]["hero"] is None
+    destroy_ctfd(app)
+
+
+def test_hzu18_result_scoreboard_ignores_freeze():
+    app = create_ctfd(user_mode="teams", enable_plugins=True)
+    with app.app_context():
+        team = gen_team(
+            app.db, name="team1", email="team1@examplectf.com", member_count=1
+        )
+        first_challenge = gen_challenge(app.db, value=100)
+        second_challenge = gen_challenge(app.db, value=200)
+        freeze = int(time.time())
+        set_config("freeze", freeze)
+
+        before_freeze = gen_solve(
+            app.db,
+            user_id=team.captain.id,
+            team_id=team.id,
+            challenge_id=first_challenge.id,
+        )
+        after_freeze = gen_solve(
+            app.db,
+            user_id=team.captain.id,
+            team_id=team.id,
+            challenge_id=second_challenge.id,
+        )
+        before_freeze.date = datetime.datetime.utcfromtimestamp(freeze - 10)
+        after_freeze.date = datetime.datetime.utcfromtimestamp(freeze + 10)
+        app.db.session.commit()
+        clear_standings()
+
+        with app.test_client() as client:
+            frozen_response = client.get("/api/v1/hzu18/scoreboard")
+            result_response = client.get("/api/v1/hzu18/scoreboard/result")
+
+        frozen_row = frozen_response.get_json()["data"]["standings"][0]
+        result_row = result_response.get_json()["data"]["standings"][0]
+        assert frozen_row["score"] == 100
+        assert frozen_row["solved_challenges"] == 1
+        assert result_row["score"] == 300
+        assert result_row["solved_challenges"] == 2
+        assert result_response.get_json()["data"]["scoreboard_frozen"] is False
     destroy_ctfd(app)
 
 
