@@ -48,6 +48,7 @@ services:
       - 443:443
     depends_on:
       - ctfd
+      - scoreboard
 
   scoreboard:
     image: node:24-alpine
@@ -71,8 +72,6 @@ services:
       && pnpm install --frozen-lockfile
       && pnpm build
       && pnpm exec next start -H 0.0.0.0 -p 3000"
-    depends_on:
-      - nginx
 
   db:
     image: mariadb:10.11
