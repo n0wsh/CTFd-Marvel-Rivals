@@ -22,13 +22,13 @@ cp .env.example .env.local
 
 Current defaults:
 
-- `NEXT_PUBLIC_CTFD_PUBLIC_BASE=https://u18-2026.haruulzangi.mn`
+- `NEXT_PUBLIC_CTFD_PUBLIC_BASE=https://u18-final.haruulzangi.mn`
 - `NEXT_PUBLIC_SCOREBOARD_PUBLIC_BASE=https://scoreboard.haruulzangi.mn`
-- `NEXT_PUBLIC_SCOREBOARD_API_BASE=https://u18-2026.haruulzangi.mn/api/v1/hzu18`
+- `NEXT_PUBLIC_SCOREBOARD_API_BASE=https://u18-final.haruulzangi.mn/api/v1/hzu18`
 
 Optional server-only variables for richer live development data:
 
-- `CTFD_ADMIN_API_BASE=https://u18-2026.haruulzangi.mn/api/v1`
+- `CTFD_ADMIN_API_BASE=https://u18-final.haruulzangi.mn/api/v1`
 - `CTFD_ADMIN_API_KEY=`
 
 ## Development

@@ -1,8 +1,10 @@
 const ctfdPublicBase =
-  process.env.NEXT_PUBLIC_CTFD_PUBLIC_BASE ?? "http://127.0.0.1:4000";
+  process.env.NEXT_PUBLIC_CTFD_PUBLIC_BASE ??
+  "https://u18-final.haruulzangi.mn";
 
 const scoreboardPublicBase =
-  process.env.NEXT_PUBLIC_SCOREBOARD_PUBLIC_BASE ?? "http://127.0.0.1:3000";
+  process.env.NEXT_PUBLIC_SCOREBOARD_PUBLIC_BASE ??
+  "https://scoreboard.haruulzangi.mn";
 
 const apiBase =
   process.env.NEXT_PUBLIC_SCOREBOARD_API_BASE ??

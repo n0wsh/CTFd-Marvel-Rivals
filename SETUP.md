@@ -257,16 +257,23 @@ For Docker/MariaDB, run SQL inside the database container instead.
 Recommended host split:
 
 ```text
-https://u18-2026.haruulzangi.mn       -> CTFd
+https://u18-final.haruulzangi.mn       -> CTFd
 https://scoreboard.haruulzangi.mn     -> scoreboard
 ```
 
 Production scoreboard environment:
 
 ```env
-NEXT_PUBLIC_CTFD_PUBLIC_BASE=https://u18-2026.haruulzangi.mn
+NEXT_PUBLIC_CTFD_PUBLIC_BASE=https://u18-final.haruulzangi.mn
 NEXT_PUBLIC_SCOREBOARD_PUBLIC_BASE=https://scoreboard.haruulzangi.mn
-NEXT_PUBLIC_SCOREBOARD_API_BASE=https://u18-2026.haruulzangi.mn/api/v1/hzu18
+NEXT_PUBLIC_SCOREBOARD_API_BASE=https://u18-final.haruulzangi.mn/api/v1/hzu18
+```
+
+These `NEXT_PUBLIC_*` values are baked into the Next.js browser bundle at build
+time. After changing them, rebuild the scoreboard container:
+
+```bash
+docker compose up --build -d scoreboard
 ```
 
 In `/admin/hzu18/heroes`, set allowed scoreboard origins to include:
@@ -278,6 +285,6 @@ https://scoreboard.haruulzangi.mn
 If using a reverse proxy, route:
 
 ```text
-u18-2026.haruulzangi.mn       -> ctfd:8000
+u18-final.haruulzangi.mn       -> ctfd:8000
 scoreboard.haruulzangi.mn     -> scoreboard:3000
 ```

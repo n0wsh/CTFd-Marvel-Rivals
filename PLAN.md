@@ -27,7 +27,7 @@ Build an HZU18 Final Round experience with a Marvel Rivals theme direction and t
 
 Final round target host:
 
-- CTF: `https://u18-2026.haruulzangi.mn/`
+- CTF: `https://u18-final.haruulzangi.mn/`
 - Custom scoreboard: `https://scoreboard.haruulzangi.mn/`
 
 Important deployment note:
@@ -543,7 +543,7 @@ Deliverables:
 
 Suggested final-round route layout:
 
-- `https://u18-2026.haruulzangi.mn/` -> CTFd
+- `https://u18-final.haruulzangi.mn/` -> CTFd
 - `https://scoreboard.haruulzangi.mn/` -> custom Marvel Rivals scoreboard
 
 If you later want a vanity route on the main domain, it can redirect to `https://scoreboard.haruulzangi.mn/`, but the plan should assume the scoreboard is hosted separately.
